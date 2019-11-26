@@ -1,7 +1,7 @@
 ---
-title: "Biome-Shiny Demonstration"
+title: "Biome-Shiny Demonstration Guide"
 author: "Henrique Costa"
-date: "November 25, 2019"
+date: "November 28, 2019"
 output:
   html_document:
     toc: true
@@ -34,7 +34,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## 1. Setting the active dataset
 
-Biome-Shiny uses a format called .biom for inputs, but it also has a set of test data.
+Biome-Shiny uses a format called .biom for inputs, but it also has a pre-loaded set of test data for demonstration purposes.
 
 ### 1.1. Update the sample dataset
 1. In "Dataset Upload", tick the button labeled "Use sample dataset". The "dietswap" dataset will already be selected.
@@ -43,7 +43,7 @@ Biome-Shiny uses a format called .biom for inputs, but it also has a set of test
 
 ## 2. Filtering the dataset
 
-"Dietswap" is a large dataset. It has many different microbes and many samples. Biome-Shiny can help filter out the data.
+"Dietswap" is a large dataset. It has many different microbes and many samples. Biome-Shiny has several functions to filter the dataset and remove unwanted samples or irrelevant taxa.
 
 Available filters:
 
@@ -68,7 +68,8 @@ By ticking "remove unchecked samples", all samples that have not been ticked wil
 
 ### 2.6. Exercise - Filtering the dataset
 1. Experiment with the filtering function. Try removing all but the top 10 taxa.
-2. Tick "Set as active dataset" when you're done. Biome-Shiny will automatically update the dataset with any changes.
+2. If you'd like, try removing a few samples. In the "Remove Samples" box, untick whatever samples you'd like to remove. Then, tick the "Remove unchecked samples" box.
+3. Tick "Set as active dataset" when you're done. Biome-Shiny will automatically update the dataset with any changes.
 
 ## 3. Phyloseq summary
 
@@ -174,9 +175,13 @@ Biome-Shiny can generate an ordination plot for samples and for taxa. Let's star
 
 The Taxa Plot is fairly similar, except it generates a distance matrix between taxa rather than samples.
 
-###7.2. Exercise - Generate a taxa ordination plot
+### 7.2. Exercise - Generate a taxa ordination plot
 1. Choose "Genus" from the "Taxonomy rank" dropdown list and click "Plot".
 2. If you hover over the plots, you will notice certain points, representing taxa, form clusters with eachother.
 
 ## 8. Saving the outputs
-Biome-Shiny allows the user to save plots and tables with ease. Plots will be saved in a .csv file format, which will allow 
+Biome-Shiny allows the user to save plots and tables with ease. Plots will be saved in a .csv file format, which will allow the user to access them easily in Microsoft Excel or similar programs.
+
+The plots can be saved by clicking the "Download plot as a png" button (it looks like a camera) at the top right of each plot.
+
+The final version of Biome-Shiny includes a reporting function which will allow the user to download the plots and tables in an .html report format, similar to this demonstration guide.
