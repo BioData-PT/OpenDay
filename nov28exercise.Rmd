@@ -1,0 +1,182 @@
+---
+title: "Biome-Shiny Demonstration"
+author: "Henrique Costa"
+date: "November 25, 2019"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      toc_collapsed: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{css, echo=FALSE}
+.spoiler {
+  visibility: hidden;
+}
+
+.spoiler::before {
+  visibility: visible;
+  content: "Hover for answer."
+}
+
+.spoiler:hover {
+  visibility: visible;
+}
+
+.spoiler:hover::before {
+  display: none;
+}
+```
+
+## 1. Setting the active dataset
+
+Biome-Shiny uses a format called .biom for inputs, but it also has a set of test data.
+
+### 1.1. Update the sample dataset
+1. In "Dataset Upload", tick the button labeled "Use sample dataset". The "dietswap" dataset will already be selected.
+2. Tick "Update Dataset"
+3. Click "Phyloseq Summary" in the dashboard. It will show a list of dataset features. We'll return to these later.
+
+## 2. Filtering the dataset
+
+"Dietswap" is a large dataset. It has many different microbes and many samples. Biome-Shiny can help filter out the data.
+
+Available filters:
+
+### 2.1. Prevalence:
+Prevalence is the ratio of OTU presence in the samples. In other words, a percentage of times the OTU or microbe is present in the samples.
+
+### 2.2. Prune and subset taxa:
+
+Allows for the removal of unwanted OTUs or species. This can be useful, for example, to keep only the most prominent species in the dataset.
+
+##### 2.3. Keep only the top taxa:
+
+Filters out all but the top X taxa, with X being a user-defined number. Default is 10.
+
+#### 2.4. Subset taxa by taxonomy rank:
+
+Removes all unticked taxa from the dataset. For example, unticking Bacteroidetes will remove all elements of the Bacteroidetes phylum from the dataset.
+
+### 2.5. Remove samples
+
+By ticking "remove unchecked samples", all samples that have not been ticked will be removed from the dataset.
+
+### 2.6. Exercise - Filtering the dataset
+1. Experiment with the filtering function. Try removing all but the top 10 taxa.
+2. Tick "Set as active dataset" when you're done. Biome-Shiny will automatically update the dataset with any changes.
+
+## 3. Phyloseq summary
+
+Lists a summary of information about the dataset.
+
+* Compositional [YES/NO] - Whether abundance values are in relative abundance (compositional) format or not.
+* Min, max, total, average, median number of reads
+* Sparsity: Ratio of OTUs whose abundance is 0. If no OTU in every sample has an abundance value of 0, then sparsity is 0.
+* Number of singletons: Number of OTUs observed fewer than 2 times.
+* Percentage of OTUs that are singletons: The above value in relation to all OTUs in the dataset.
+* Sample variables: Allow the user to organize and compare microbiome data in order to draw conclusions (i.e. sorting samples by nationality)
+
+
+
+Biome-Shiny's main feature is the ability to generate interactive plots on the fly, that can be easily manipulated by the user.
+
+## 4. Core abundance heatmap (Core microbiota)
+
+The abundance heatmap is useful for comparing abundance values of OTU or species in different samples. This allows us to see if certain species adapt better to the conditions of certain samples (for example, if certain diets lead to a higher number of a given species over another).
+
+### 4.1. Exercise - Your first core abundance heatmap
+1. Click on "Core microbiota". The app will generate a heatmap of OTU abundances in each sample.
+    1.1. Feel free to use the dataset filtering function to remove OTUs or samples, then note the changes in the plot.
+2. Try interacting with the dataset. Click and drag the mouse to zoom in on a certain portion, then double-click to zoom back out.
+   Note the information displayed when you hover over a column. What does it mean?
+   
+   **Answer:** ["row" represents the OTU or species, "column" represents the sample, "value" represents the abundance value (number of elements of the species) of the species in that sample.]{.spoiler}
+
+Note that the app will take some time to generate a heatmap. The less samples and OTUs, the faster.
+
+
+## 5. Community composition plots
+
+Community composition plots allow the user to measure the relative and absolute abundance of taxa.
+
+### 5.1. Exercise - Generating a community composition plot
+    1. In the "Sample variable" dropdown menu, choose "sample".
+    2. Click the "Absolute Abundance Plot" tab. What do you see?
+    **Answer:** [A barplot displaying the abundance values of each Phylum per sample.]{.spoiler}
+    3. Now click the "Relative Abundance Plot" tab. What do you see?
+    **Answer:** [The same, but in percentage form.]{.spoiler}
+    
+### 5.2. Exercise - Sorting Samples by Metadata
+It's possible to organized samples based on a metadata sample.
+    1. Return to the "Variables" tab, and tick the "Group samples by metadata variable" box
+    2. In the "Metadata:" dropdown list, choose "nationality"
+    3. Click "Absolute Abundance Plot", then "Relative Abundance Plot" and wait for the new plots. What changed?
+    **Answer:** [The samples have been sorted into two boxes, "AAM" and "AFR", representing the nationalities of the subjects from which the samples were extracted.]{.spoiler}
+    
+### 5.3. Exercise - Switching Taxonomic Ranks
+Finally, it's possible to choose which taxonomic rank to represent in the plot.
+    1. Return to the "Variables" tab. In the "Taxonomic rank:" dropdown list, choose "Genus".
+    2. Return to the "Absolute Abundance Plot" tab, wait for the new plot. What changed?
+    **Answer:** [The plot bars now represent the OTUs' Genus, rather than Phylum.
+    3. Are there any significant differences between the "AAM" samples and "AFR" samples?]{.spoiler}
+    **Answer:** ["AAM" (American) samples are dominated by the Bacteroides genus, while Prevotella is the primary genus in "AFR" (African) samples.]{.spoiler}
+    
+## 6. Alpha diversity
+
+Alpha diversity is a measurement of species richness at a local (sample) level.
+Biome-Shiny displays a series of tables with alpha diversity measures, as well as an interactive richness plot.
+
+### 6.1. Evenness table
+
+A table displaying various measurements of evenness per sample.
+
+### 6.2. Abundance tables
+
+Two tables. Abundance (Counts) displays the number of elements of an OTU per sample. Abundance (Relative) displays the same information in compositional form, calculated by dividing the number of elements of an OTU by the total number of microbes in a sample. 
+
+1. The table has a search function that allows the user to narrow down their search. Try searching for "Prevotella".
+
+### 6.3. Metadata table w/ diversity measures
+
+Displays metadata variables with several diversity measures. Useful for an overview of the dataset.
+
+### 6.4. Richness plot
+
+Measures richness in samples.
+
+#### 6.4.1. Exercise - Generating a richness plot
+1. In the "Samples:" dropdown list, choose "samples"
+2. For the "Point color metadata" dropdown, choose "subject".
+3. Tick "Sort samples by metadata variable". In the "Sample sorting metadata:" dropdown, choose "nationality".
+4. In "Choose diversity measure:", pick "Simpson"
+5. Click the "Plot" tab.
+
+The Simpson diversity measure determines diversity within a system, displaying values between 0 and 1, with 1 representing no diversity and 0 representing infinite diversity. At first glance, between African (AFR) and American (AAM) samples, which ones seem to be more diverse, and why?
+
+**Answer:** [African (AFR) samples, as there are more samples with values closer to 0 than in American (AAM) samples.]{.spoiler}
+
+## 7. Beta diversity
+
+Biome-Shiny measures beta diversity through ordination plots. Each point on the ordination plot represents a sample, and the main objective is usually to find clusters of points. A distance matrix is generated before generating the plot.
+
+Biome-Shiny can generate an ordination plot for samples and for taxa. Let's start with the samples plot, on the "Ordination Plot" tab.
+
+### 7.1. Exercise - Generate a sample ordination plot
+1. The "Sample variable:" value will color the points. Choose "nationality" from the dropdown list.
+2. "Ordination method" and "distance" are used to generate the distance matrix. We'll leave them in the default setting.
+3. "Point size" is an aesthetic setting that changes the size of the points, as the name indicates. Feel free to adjust it to your preference.
+4. Click on the "Plot" tab.
+
+The Taxa Plot is fairly similar, except it generates a distance matrix between taxa rather than samples.
+
+###7.2. Exercise - Generate a taxa ordination plot
+1. Choose "Genus" from the "Taxonomy rank" dropdown list and click "Plot".
+2. If you hover over the plots, you will notice certain points, representing taxa, form clusters with eachother.
+
+## 8. Saving the outputs
+Biome-Shiny allows the user to save plots and tables with ease. Plots will be saved in a .csv file format, which will allow 
