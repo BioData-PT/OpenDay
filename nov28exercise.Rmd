@@ -1,6 +1,6 @@
 ---
-title: "Biome-Shiny Demonstration Guide"
-author: "Henrique Costa"
+title: "Biome-Shiny Demonstration"
+author: "IGC Open Day"
 date: "November 28, 2019"
 output:
   html_document:
@@ -31,6 +31,23 @@ knitr::opts_chunk$set(echo = TRUE)
   display: none;
 }
 ```
+## Preparations
+For this session, Biome-Shiny should be pre-installed on your computer.
+Your desktop should have a file named LaunchBiomeShiny.Rscript. Open the Ubuntu Terminal and type in:
+
+    cd Desktop
+    Rscript LaunchBiomeShiny.Rscript
+
+This will run a script that will start the Biome-Shiny application. Then, open your browser and type in the address bar:
+
+    localhost:4800
+
+If you'd like to run it manually through R (without using the provided Rscript file), you can also type:
+
+    R
+    biomeshiny.package::launchApp()
+
+On the terminal.
 
 ## 1. Setting the active dataset
 
@@ -50,7 +67,7 @@ Available filters:
 ### 2.1. Prevalence:
 Prevalence is the ratio of OTU presence in the samples. In other words, a percentage of times the OTU or microbe is present in the samples.
 
-### 2.2. Prune and subset taxa:
+### 2.2. Subset taxa:
 
 Allows for the removal of unwanted OTUs or species. This can be useful, for example, to keep only the most prominent species in the dataset.
 
@@ -62,11 +79,11 @@ Filters out all but the top X taxa, with X being a user-defined number. Default 
 
 Removes all unticked taxa from the dataset. For example, unticking Bacteroidetes will remove all elements of the Bacteroidetes phylum from the dataset.
 
-### 2.5. Remove samples
+#### 2.5. Remove samples
 
 By ticking "remove unchecked samples", all samples that have not been ticked will be removed from the dataset.
 
-### 2.6. Exercise - Filtering the dataset
+#### 2.6. Exercise - Filtering the dataset
 1. Experiment with the filtering function. Try removing all but the top 10 taxa.
 2. If you'd like, try removing a few samples. In the "Remove Samples" box, untick whatever samples you'd like to remove. Then, tick the "Remove unchecked samples" box.
 3. Tick "Set as active dataset" when you're done. Biome-Shiny will automatically update the dataset with any changes.
@@ -78,6 +95,7 @@ Lists a summary of information about the dataset.
 * Compositional [YES/NO] - Whether abundance values are in relative abundance (compositional) format or not.
 * Min, max, total, average, median number of reads
 * Sparsity: Ratio of OTUs whose abundance is 0. If no OTU in every sample has an abundance value of 0, then sparsity is 0.
+* Any OTU sum to 1 or less [YES/NO]: Whether or not there are singletons in the dataset.
 * Number of singletons: Number of OTUs observed fewer than 2 times.
 * Percentage of OTUs that are singletons: The above value in relation to all OTUs in the dataset.
 * Sample variables: Allow the user to organize and compare microbiome data in order to draw conclusions (i.e. sorting samples by nationality)
@@ -91,8 +109,7 @@ Biome-Shiny's main feature is the ability to generate interactive plots on the f
 The abundance heatmap is useful for comparing abundance values of OTU or species in different samples. This allows us to see if certain species adapt better to the conditions of certain samples (for example, if certain diets lead to a higher number of a given species over another).
 
 ### 4.1. Exercise - Your first core abundance heatmap
-1. Click on "Core microbiota". The app will generate a heatmap of OTU abundances in each sample.
-    1.1. Feel free to use the dataset filtering function to remove OTUs or samples, then note the changes in the plot.
+1. Click on "Core microbiota". The app will generate a heatmap of OTU abundances in each sample. Feel free to use the dataset filtering function to remove OTUs or samples, then note the changes in the plot when it regenerates.
 2. Try interacting with the dataset. Click and drag the mouse to zoom in on a certain portion, then double-click to zoom back out.
    Note the information displayed when you hover over a column. What does it mean?
    
@@ -106,26 +123,33 @@ Note that the app will take some time to generate a heatmap. The less samples an
 Community composition plots allow the user to measure the relative and absolute abundance of taxa.
 
 ### 5.1. Exercise - Generating a community composition plot
-    1. In the "Sample variable" dropdown menu, choose "sample".
-    2. Click the "Absolute Abundance Plot" tab. What do you see?
-    **Answer:** [A barplot displaying the abundance values of each Phylum per sample.]{.spoiler}
-    3. Now click the "Relative Abundance Plot" tab. What do you see?
-    **Answer:** [The same, but in percentage form.]{.spoiler}
-    
+1. In the "Sample variable" dropdown menu, choose "sample".
+2. Click the "Absolute Abundance Plot" tab. What do you see?
+
+**Answer:** [A barplot displaying the number of elements of each taxa per sample.]{.spoiler}
+
+3. Now click the "Relative Abundance Plot" tab. What do you see?
+
+**Answer:** [A percentage of how much each taxa contributes to the sample's microbial composition.]{.spoiler}
+
 ### 5.2. Exercise - Sorting Samples by Metadata
 It's possible to organized samples based on a metadata sample.
-    1. Return to the "Variables" tab, and tick the "Group samples by metadata variable" box
-    2. In the "Metadata:" dropdown list, choose "nationality"
-    3. Click "Absolute Abundance Plot", then "Relative Abundance Plot" and wait for the new plots. What changed?
-    **Answer:** [The samples have been sorted into two boxes, "AAM" and "AFR", representing the nationalities of the subjects from which the samples were extracted.]{.spoiler}
+1. Return to the "Variables" tab, and tick the "Group samples by metadata variable" box
+2. In the "Metadata:" dropdown list, choose "nationality"
+3. Click "Absolute Abundance Plot", then "Relative Abundance Plot" and wait for the new plots. What changed?
+
+**Answer:** [The samples have been sorted into two boxes, "AAM" and "AFR", representing the nationalities of the subjects from which the samples were extracted.]{.spoiler}
     
 ### 5.3. Exercise - Switching Taxonomic Ranks
 Finally, it's possible to choose which taxonomic rank to represent in the plot.
-    1. Return to the "Variables" tab. In the "Taxonomic rank:" dropdown list, choose "Genus".
-    2. Return to the "Absolute Abundance Plot" tab, wait for the new plot. What changed?
-    **Answer:** [The plot bars now represent the OTUs' Genus, rather than Phylum.
-    3. Are there any significant differences between the "AAM" samples and "AFR" samples?]{.spoiler}
-    **Answer:** ["AAM" (American) samples are dominated by the Bacteroides genus, while Prevotella is the primary genus in "AFR" (African) samples.]{.spoiler}
+1. Return to the "Variables" tab. In the "Taxonomic rank:" dropdown list, choose "Genus".
+2. Return to the "Absolute Abundance Plot" tab, wait for the new plot. What changed?
+
+**Answer:** [The plot bars now represent the OTUs' Genus, rather than Phylum.]{.spoiler}
+
+3. Are there any significant differences between the "AAM" samples and "AFR" samples?
+
+**Answer:** ["AAM" (American) samples are dominated by the Bacteroides genus, while Prevotella is the primary genus in "AFR" (African) samples.]{.spoiler}
     
 ## 6. Alpha diversity
 
@@ -157,7 +181,7 @@ Measures richness in samples.
 4. In "Choose diversity measure:", pick "Simpson"
 5. Click the "Plot" tab.
 
-The Simpson diversity measure determines diversity within a system, displaying values between 0 and 1, with 1 representing no diversity and 0 representing infinite diversity. At first glance, between African (AFR) and American (AAM) samples, which ones seem to be more diverse, and why?
+The Simpson diversity measure determines diversity within a sample, preseting values between 0 and 1, with 1 representing no diversity and 0 representing infinite diversity. At first glance, between African (AFR) and American (AAM) samples, which ones seem to be more diverse, and why?
 
 **Answer:** [African (AFR) samples, as there are more samples with values closer to 0 than in American (AAM) samples.]{.spoiler}
 
