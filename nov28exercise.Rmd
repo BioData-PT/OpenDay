@@ -220,9 +220,7 @@ https://github.com/BioData-PT/Biome-Shiny
 
 https://github.com/Klink5D/biomeshiny.package
 
-The contents of this workshop can be found at either link:
+The contents of this workshop can be found at the following link:
 
-https://github.com/Klink5D/OpenDayUniversities28Nov
-
-https://github.com/BioData-PT/OpenDayUniversities28Nov
+https://github.com/BioData-PT/OpenDay
 
