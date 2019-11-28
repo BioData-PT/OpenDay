@@ -211,14 +211,18 @@ The plots can be saved by clicking the "Download plot as a png" button (it looks
 The final version of Biome-Shiny includes a reporting function which will allow the user to download the plots and tables in an .html report format, similar to this 
 demonstration guide.
 
-## Conclusion
+## 9. Conclusion
 Biome-Shiny's main strength is using several different packages to produce outputs that users can easily interact with. This makes it an effective tool to bridge the gap between traditional lab-based Biology and Bioinformatics.
 
 Biome-Shiny is a free, open-source tool that can be downloaded in source or package form. It's still in development, so feel free to send your suggestions and bug reports to the BioData Github.
 
 https://github.com/BioData-PT/Biome-Shiny
+
 https://github.com/Klink5D/biomeshiny.package
 
-The contents of this workshop can be found at: 
+The contents of this workshop can be found at either link:
+
 https://github.com/Klink5D/OpenDayUniversities28Nov
+
+https://github.com/BioData-PT/OpenDayUniversities28Nov
 
